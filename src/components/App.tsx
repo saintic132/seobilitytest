@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import style from './App.module.scss'
-import {Birthday} from './components/birthday/Birthday';
-import {Message} from "./components/message/Message";
-import {SuperInput} from './components/superInput/SuperInput';
-import {setFormDataHandle} from "./helpers";
+import {Birthday} from './birthday/Birthday';
+import {Message} from "./message/Message";
+import {SuperInput} from './superInput/SuperInput';
+import {setFormDataHandle} from "../helpers";
 
 type FormData = {
     name: string
