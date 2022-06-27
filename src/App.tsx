@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
 import style from './App.module.scss'
+import {Message} from "./components/message/Message";
+import {Name} from "./components/name/Name";
+import {Email} from "./components/email/Email";
+import {Phone} from "./components/phone/Phone";
+import {Birthday} from "./components/birthday/Birthday";
 
 type FormData = {
     name: string
@@ -19,7 +24,7 @@ function App() {
         message: '',
     })
 
-    const [errors, setErrors] = useState<{ [K in keyof FormData]?: string | number }>({
+    const [errors, setErrors] = useState<{ [K in keyof FormData]?: string }>({
         name: '',
         email: '',
         phone: '',
@@ -32,10 +37,13 @@ function App() {
             : setErrors({...errors, [field]: ''})
     }
 
-    const formattedPhoneNumber = (value: string, selectValue: number | null) => {
+        const formattedPhoneNumber = (value: string, selectValue: number | null) => {
         let inputValue = value.replace(/\D/g, '')
         let formattedInput = ''
 
+        if (!inputValue) {
+            setErrors({...errors, phone: ''})
+        }
         if (inputValue.length > 10) {
             return formData.phone
         }
@@ -60,7 +68,7 @@ function App() {
         return formattedInput
     }
 
-    const setFormDataHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const setFormDataHandle = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         switch (e.currentTarget.dataset.field) {
             case 'name': {
                 helpValidator(e.currentTarget.value, e.currentTarget.dataset.field)
@@ -82,10 +90,15 @@ function App() {
                 helpValidator(e.currentTarget.value, e.currentTarget.dataset.field)
                 setFormData({
                     ...formData,
-                    // @ts-ignore
                     [e.currentTarget.dataset.field]: formattedPhoneNumber(e.currentTarget.value, e.currentTarget.selectionStart)
                 })
-
+                break;
+            }
+            case 'birthday': {
+                setFormData({
+                    ...formData,
+                    [e.currentTarget.dataset.field]: e.currentTarget.value
+                })
                 break;
             }
             case 'message': {
@@ -121,7 +134,7 @@ function App() {
             }
             case 'phone': {
                 if (!/^[(]\d{3}[)]\s\d{3}[-]\d{2}[-]\d{2}/g.test(value)) {
-                    const error = 'Accepted only numeric number, e.g. +7 (495) 555 55 55'
+                    const error = 'Accepted only numeric number, e.g. +7 (495) 555-55-55'
                     setErrors({...errors, phone: error})
                 } else {
                     setErrors({...errors, phone: ''})
@@ -148,95 +161,36 @@ function App() {
             <div className={style.app__body}>
                 <h1>Validation form</h1>
                 <form className={style.app__form}>
-                    <div className={style.app__fields_column}>
-                        <label>First and Last name</label>
-                        <input
-                            type="text"
-                            value={formData.name}
-                            data-field='name'
-                            onChange={setFormDataHandler}
-                            placeholder='e.g. "BARBARA LISKOV"'
-                        />
 
-                        {
-                            errors.name
-                                ? <div className={style.error}>{errors.name}</div>
-                                : <div className={style.fakeDiv}/>
-                        }
+                    <Name
+                        value={formData.name}
+                        setFormDataHandler={setFormDataHandle}
+                        error={errors.name}
+                    />
 
-                    </div>
-                    <div className={style.app__fields_column}>
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            value={formData.email}
-                            data-field='email'
-                            onChange={setFormDataHandler}
-                            autoComplete='none'
-                            placeholder='Enter your email'
-                        />
+                    <Email
+                        value={formData.email}
+                        setFormDataHandler={setFormDataHandle}
+                        error={errors.email}
+                    />
 
-                        {
-                            errors?.email
-                                ? <div className={style.error}>{errors.email}</div>
-                                : <div className={style.fakeDiv}/>
-                        }
+                    <Phone
+                        value={formData.phone}
+                        setFormDataHandler={setFormDataHandle}
+                        error={errors.phone}
+                    />
 
-                    </div>
-                    <div className={style.app__fields_column}>
-                        <label>Phone number</label>
-                        <input
-                            className={style.input__phone}
-                            type="tel"
-                            value={formData.phone}
-                            data-field='phone'
-                            onChange={setFormDataHandler}
-                            placeholder='(495) 555-55-55'
-                        />
+                    <Birthday
+                        value={formData.birthday}
+                        setFormDataHandler={setFormDataHandle}
+                    />
 
-                        {
-                            <div className={style.phoneFormat}>
-                                {'+7'}
-                            </div>
-                        }
+                    <Message
+                        value={formData.message}
+                        setFormDataHandler={setFormDataHandle}
+                        error={errors.message}
+                    />
 
-                        {
-                            errors?.phone
-                                ? <div className={style.error}>{errors.phone}</div>
-                                : <div className={style.fakeDiv}/>
-                        }
-
-                    </div>
-                    <div className={style.app__fields_column}>
-                        <label>Birthday</label>
-                        <input
-                            type="date"
-                            value={formData.birthday}
-                            data-field='birthday'
-                            onChange={setFormDataHandler}
-                        />
-                    </div>
-                    <div className={style.app__textarea__column}>
-                        <label>Message</label>
-                        <textarea
-                            value={formData.message}
-                            minLength={10}
-                            maxLength={300}
-                            data-field='message'
-                            onChange={setFormDataHandler}
-                            placeholder='Enter message here. Min 10 letters'
-                        />
-                        <div className={style.app__textarea_length}>
-                            {300 - formData.message.length}
-                        </div>
-
-                        {
-                            errors?.message
-                                ? <div className={style.error}>{errors.message}</div>
-                                : <div className={style.fakeDiv}/>
-                        }
-
-                    </div>
                     <div className={style.app__submitted}>
                         <button
                             type='submit'
