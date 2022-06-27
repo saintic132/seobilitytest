@@ -10,6 +10,7 @@ type SuperInputPropsType = DefaultInputPropsType & {
     finalClassName?: boolean
     error?: string | undefined
     dataName: string
+    max?: number
     children?: React.ReactNode
 }
 
@@ -21,6 +22,7 @@ export const SuperInput: React.FC<SuperInputPropsType> = ({
                                                               error,
                                                               className,
                                                               finalClassName,
+                                                              max,
                                                               children,
                                                               ...restProps
                                                           }) => {
@@ -36,6 +38,7 @@ export const SuperInput: React.FC<SuperInputPropsType> = ({
             <label>{name}</label>
             <input
                 className={finalInputClassName}
+                maxLength={max}
                 type={type}
                 data-field={dataName}
                 onChange={onChangeCallback}
