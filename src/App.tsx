@@ -46,17 +46,18 @@ function App() {
         })
     }
 
+
     const submitDataForm = async (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault()
 
         let {name, email, phone, birthday, message} = formData
+        const validateSubmitErrors = (errors.name || errors.email || errors.phone || errors.message)
+        const validateSubmitData = (name && email && phone && birthday && message)
 
-        if (!(errors.name || errors.email || errors.phone || errors.message)
-            &&
-            (name && email && phone && birthday && message)) {
+        if (!validateSubmitErrors && validateSubmitData) {
             setDisableSubmitButton(true)
-            let response = await fetch('http://localhost:5000', {
+            let response = await fetch('https://seobilityback.herokuapp.com/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
