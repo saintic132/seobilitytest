@@ -1,0 +1,40 @@
+.app__fields_column {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  position: relative;
+
+  label {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #24254A;
+  }
+}
+
+.fakeDiv {
+  height: 21px;
+}
+
+.error {
+  height: 21px;
+  color: red;
+}
+
+input {
+  margin-top: 8px;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid rgba(36, 37, 74, .2);
+  padding: 5px 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.input__phone {
+    padding-left: 20px;
+  }
+
+}

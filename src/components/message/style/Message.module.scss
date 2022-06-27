@@ -1,0 +1,27 @@
+.app__textarea__column {
+  position: relative;
+  margin-bottom: 15px;
+
+  & .app__textarea_length {
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+    font-size: 10px;
+  }
+}
+
+textarea {
+  margin-top: 8px;
+  width: 100%;
+  height: 90px;
+  border: 2px solid black;
+}
+
+.fakeDiv {
+  height: 21px;
+}
+
+.error {
+  height: 21px;
+  color: red;
+}

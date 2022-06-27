@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import style from './App.module.scss'
+import {Birthday} from './components/birthday/Birthday';
 import {Message} from "./components/message/Message";
-import {Name} from "./components/name/Name";
-import {Email} from "./components/email/Email";
-import {Phone} from "./components/phone/Phone";
-import {Birthday} from "./components/birthday/Birthday";
+import {SuperInput} from './components/superInput/SuperInput';
 
 type FormData = {
     name: string
@@ -37,7 +35,7 @@ function App() {
             : setErrors({...errors, [field]: ''})
     }
 
-        const formattedPhoneNumber = (value: string, selectValue: number | null) => {
+    const formattedPhoneNumber = (value: string, selectValue: number | null) => {
         let inputValue = value.replace(/\D/g, '')
         let formattedInput = ''
 
@@ -162,23 +160,35 @@ function App() {
                 <h1>Validation form</h1>
                 <form className={style.app__form}>
 
-                    <Name
+                    <SuperInput
+                        name='First and Last name'
                         value={formData.name}
-                        setFormDataHandler={setFormDataHandle}
+                        onChange={setFormDataHandle}
                         error={errors.name}
+                        dataName='name'
                     />
 
-                    <Email
+                    <SuperInput
+                        name='Email'
                         value={formData.email}
-                        setFormDataHandler={setFormDataHandle}
+                        onChange={setFormDataHandle}
                         error={errors.email}
+                        dataName='email'
                     />
 
-                    <Phone
+                    <SuperInput
+                        finalClassName
+                        name='Phone number'
                         value={formData.phone}
-                        setFormDataHandler={setFormDataHandle}
+                        onChange={setFormDataHandle}
                         error={errors.phone}
-                    />
+                        dataName='phone'
+                        placeholder='(495) 555-55-55'
+                    >
+                        <div className={style.phoneFormat}>
+                            {'+7'}
+                        </div>
+                    </SuperInput>
 
                     <Birthday
                         value={formData.birthday}

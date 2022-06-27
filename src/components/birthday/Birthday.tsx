@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "../../App.module.scss";
+import style from "./style/Birthday.module.scss";
 
 type BirthdayPropsType = {
     value: string

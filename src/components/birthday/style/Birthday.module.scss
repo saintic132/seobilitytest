@@ -1,0 +1,36 @@
+.app__fields_column {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  position: relative;
+
+  label {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #24254A;
+  }
+}
+
+.input__birthday_wrapper {
+  position: relative;
+  width: 100%;
+  height: 39px;
+  overflow: hidden;
+
+  .input__birthday_date {
+    line-height: 24px;
+    position: absolute;
+    top: -8px;
+    box-sizing: border-box;
+  }
+
+  .input__birthday_picker {
+    height: 27px;
+    font-size: 999px;
+    opacity: 0;
+    position: absolute;
+    top: -8px;
+  }
+}

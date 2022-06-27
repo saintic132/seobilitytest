@@ -23,94 +23,12 @@
 .app__form {
   margin: 20px 0;
   width: 100%;
-
-  .app__fields_column {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-    position: relative;
-
-    label {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 13px;
-      line-height: 20px;
-      color: #24254A;
-    }
-  }
-}
-
-.app__textarea__column {
-  position: relative;
-  margin-bottom: 15px;
-
-  & .app__textarea_length {
-    position: absolute;
-    right: 0;
-    bottom: 30px;
-    font-size: 10px;
-  }
-}
-
-.fakeDiv {
-  height: 21px;
-}
-
-.error {
-  height: 21px;
-  color: red;
-}
-
-input {
-  margin-top: 8px;
-  width: 100%;
-  border: none;
-  border-bottom: 2px solid rgba(36, 37, 74, .2);
-  padding: 5px 0;
-
-  &:focus {
-    outline: none;
-  }
-
-  &.input__phone {
-    padding-left: 20px;
-  }
-
-}
-
-.input__birthday_wrapper {
-  position: relative;
-  width: 100%;
-  height: 39px;
-  overflow: hidden;
-
-  .input__birthday_date {
-    line-height: 24px;
-    position: absolute;
-    top: -8px;
-    box-sizing: border-box;
-  }
-
-  .input__birthday_picker {
-    height: 27px;
-    font-size: 999px;
-    opacity: 0;
-    position: absolute;
-    top: -8px;
-  }
 }
 
 .phoneFormat {
   position: absolute;
   top: 30px;
   font-size: 14px;
-}
-
-textarea {
-  margin-top: 8px;
-  width: 100%;
-  height: 90px;
-  border: 2px solid black;
 }
 
 .app__submitted {
