@@ -16,7 +16,7 @@ export const validatorFormData = (dataField: string, value: string) => {
         }
         case 'phone': {
             if (!/^[(]\d{3}[)]\s\d{3}[-]\d{2}[-]\d{2}/g.test(value)) {
-                return {[dataField]: 'Accepted only numeric number, e.g. +7 (495) 555-55-55'}
+                return {[dataField]: 'Accepted only numeric number, e.g. +7 (123) 456-78-90'}
             } else {
                 return {[dataField]: ''}
             }

@@ -52,8 +52,30 @@
     color: #ECECF9;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
     cursor: pointer;
+
+    &:active {
+      box-shadow: 0 1px #666;
+      transform: translateY(1px);
+    }
+
+    &:disabled {
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #6666
+    }
   }
 }
 
+.fakeDiv {
+  height: 21px;
+}
 
+.success_message {
+  height: 21px;
+  color: green;
+}
 
+.error_message {
+  height: 21px;
+  color: red;
+}

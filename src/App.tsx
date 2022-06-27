@@ -29,8 +29,11 @@ function App() {
         phone: '',
         message: ''
     })
+    const [errorMessageFetch, setErrorMessageFetch] = useState<string>('');
+    const [disableSubmitButton, setDisableSubmitButton] = useState<boolean>(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setErrorMessageFetch('')
         let newData = setFormDataHandle(e)
 
         newData && setFormData({
@@ -43,9 +46,47 @@ function App() {
         })
     }
 
-    const submitDataForm = (e: React.FormEvent<HTMLFormElement>) => {
+    const submitDataForm = async (e: React.FormEvent<HTMLFormElement>) => {
+
         e.preventDefault()
+
+        let {name, email, phone, birthday, message} = formData
+
+        if (!(errors.name || errors.email || errors.phone || errors.message)
+            &&
+            (name && email && phone && birthday && message)) {
+            setDisableSubmitButton(true)
+            let response = await fetch('http://localhost:5000', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+            })
+            await response.json()
+                .then(res => {
+                    setErrorMessageFetch(res.message)
+                    setFormData({
+                        name: '',
+                        email: '',
+                        phone: '',
+                        birthday: '',
+                        message: '',
+                    })
+                })
+                .catch(err => {
+                    setErrorMessageFetch(err.message)
+                })
+                .finally(() => {
+                    setDisableSubmitButton(false)
+                })
+        } else {
+            setErrorMessageFetch('Fix errors and fill empty fields.')
+        }
     }
+
+    const styleToMessage = errorMessageFetch === 'Success data send' ? style.success_message : style.error_message
+
 
     return (
         <div className={style.app__container}>
@@ -101,11 +142,19 @@ function App() {
                     <div className={style.app__submitted}>
                         <button
                             type='submit'
+                            disabled={disableSubmitButton}
                         >
                             Submit
                         </button>
                     </div>
                 </form>
+
+                {
+                    errorMessageFetch
+                        ? <div className={styleToMessage}>{errorMessageFetch}</div>
+                        : <div className={style.fakeDiv}/>
+                }
+
             </div>
         </div>
     );
